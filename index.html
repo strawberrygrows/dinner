@@ -33,6 +33,7 @@
     color: var(--ink);
     line-height: 1.55;
     -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
   }
   .wrap { max-width: 720px; margin: 0 auto; padding: 0 20px; }
 
@@ -59,27 +60,30 @@
     font-family: 'Fraunces', Georgia, serif;
     font-weight: 700; font-size: clamp(38px, 7vw, 58px);
     line-height: 1.05; letter-spacing: -0.01em;
+    text-wrap: balance;
   }
   .hero-sub {
     margin-top: 16px; color: #c7d3d0; max-width: 46ch; font-size: 16px;
+    text-wrap: pretty;
   }
   .hero-sub a { color: var(--cam-blue); font-weight: 600; }
   .hero-meta {
     margin-top: 22px; display: flex; gap: 22px; flex-wrap: wrap;
     font-size: 14px; color: var(--cam-blue);
+    font-variant-numeric: tabular-nums;
   }
   .hero-meta strong { color: var(--paper); font-weight: 600; }
 
   /* ---------- Name finder ---------- */
   .finder {
     background: var(--card);
-    border: 1px solid var(--line);
-    border-radius: 14px;
-    padding: 20px;
+    border-radius: 26px; /* concentric: input radius 10 + padding 16 */
+    padding: 16px;
     margin: -26px auto 0;
     position: relative;
-    box-shadow: 0 6px 24px rgba(28,43,51,0.10);
+    box-shadow: 0 0 0 1px rgba(28,43,51,0.06), 0 1px 2px -1px rgba(28,43,51,0.06), 0 2px 4px 0 rgba(28,43,51,0.04), 0 6px 24px rgba(28,43,51,0.10);
   }
+  .finder label { padding: 4px 6px 0; }
   .finder label {
     display: block; font-weight: 600; font-size: 15px; margin-bottom: 8px;
   }
@@ -87,24 +91,29 @@
     width: 100%;
     font: inherit; font-size: 17px;
     padding: 12px 14px;
-    border: 1.5px solid var(--line);
+    border: none;
     border-radius: 10px;
     background: var(--paper);
     color: var(--ink);
+    box-shadow: 0 0 0 1px rgba(28,43,51,0.10) inset;
+    transition: box-shadow 160ms ease;
   }
-  .finder input:focus { outline: 3px solid var(--cam-blue); border-color: var(--cam-blue-deep); }
-  .finder-result { margin-top: 12px; font-size: 15px; min-height: 1.2em; }
+  .finder input:focus {
+    outline: none;
+    box-shadow: 0 0 0 1px var(--cam-blue-deep) inset, 0 0 0 3px var(--cam-blue);
+  }
+  .finder-result { margin-top: 12px; font-size: 15px; min-height: 1.2em; padding: 0 6px; text-wrap: pretty; }
   .finder-result a { color: var(--cam-blue-deep); font-weight: 600; }
   .finder-result .miss { color: var(--ink-soft); }
 
   .your-dinner {
     display: none;
-    margin-top: 14px;
-    border: 1px solid var(--line);
+    margin-top: 12px;
     border-left: 5px solid var(--tc, var(--cam-blue));
-    border-radius: 10px;
+    border-radius: 10px; /* concentric: finder 26 - padding 16 */
     padding: 16px 18px;
     background: var(--paper);
+    box-shadow: 0 0 0 1px rgba(28,43,51,0.06);
   }
   .your-dinner.show { display: block; }
   .yd-table {
@@ -119,9 +128,12 @@
     display: inline-block; margin-top: 8px;
     background: var(--ink); color: var(--paper);
     text-decoration: none; font-weight: 600; font-size: 14px;
-    padding: 8px 14px; border-radius: 8px;
+    padding: 8px 12px 8px 14px; /* optical: arrow glyph carries visual weight right */
+    border-radius: 8px;
+    transition: background-color 180ms ease, transform 180ms ease;
   }
   .yd-map:hover { background: var(--tc, var(--cam-blue-deep)); }
+  .yd-map:active { transform: scale(0.98); }
   .yd-note { color: var(--ink-soft); font-size: 14px; margin-top: 8px; }
   .yd-with { margin-top: 12px; }
   .yd-with-label {
@@ -130,15 +142,16 @@
   }
   .yd-with ul { list-style: none; display: flex; flex-wrap: wrap; gap: 6px; }
   .yd-with li {
-    background: #fff; border: 1px solid var(--line);
+    background: #fff;
     border-radius: 999px; padding: 3px 11px; font-size: 13.5px;
+    box-shadow: 0 0 0 1px rgba(28,43,51,0.08);
   }
   .yd-with li.host {
-    background: var(--tc, var(--cam-blue)); color: #fff; border-color: transparent;
+    background: var(--tc, var(--cam-blue)); color: #fff; box-shadow: none;
   }
   .yd-with li.me {
-    background: var(--ink); color: #fff; border-color: transparent;
-    font-weight: 600; outline: 2px solid var(--tc, var(--cam-blue));
+    background: var(--ink); color: #fff;
+    font-weight: 600; box-shadow: 0 0 0 2px var(--tc, var(--cam-blue));
   }
 
   /* ---------- Browse-all toggle ---------- */
@@ -159,16 +172,32 @@
   #all-tables { display: none; }
   #all-tables.show { display: block; }
 
+  /* ---------- Enter animations ---------- */
+  @media (prefers-reduced-motion: no-preference) {
+    @keyframes enter {
+      from {
+        transform: translateY(8px);
+        filter: blur(8px);
+        opacity: 0;
+      }
+    }
+    .animate-enter {
+      animation: enter 700ms cubic-bezier(0.25, 0.46, 0.45, 0.94) both;
+      animation-delay: calc(90ms * var(--stagger, 0));
+    }
+  }
+
   /* ---------- Tables ---------- */
   main { padding: 40px 0 24px; }
   .table-card {
     background: var(--card);
-    border: 1px solid var(--line);
     border-radius: 14px;
     margin-bottom: 26px;
     overflow: hidden;
-    transition: box-shadow 0.3s ease;
+    box-shadow: 0 0 0 1px rgba(28,43,51,0.06), 0 1px 2px -1px rgba(28,43,51,0.06), 0 2px 4px 0 rgba(28,43,51,0.04);
+    transition: box-shadow 200ms ease;
   }
+  .table-card:hover { box-shadow: 0 0 0 1px rgba(28,43,51,0.09), 0 1px 2px -1px rgba(28,43,51,0.09), 0 3px 6px 0 rgba(28,43,51,0.06); }
   .table-card.highlight { box-shadow: 0 0 0 3px var(--tc, var(--cam-blue)); }
   .table-head {
     padding: 20px 22px 16px;
@@ -177,13 +206,14 @@
   .table-name {
     font-family: 'Fraunces', Georgia, serif;
     font-weight: 600; font-size: 26px; line-height: 1.15;
+    text-wrap: balance;
   }
   .table-name .amp { font-family: 'Work Sans', system-ui, sans-serif; font-weight: 600; }
   .rest {
     margin-top: 10px; display: flex; flex-direction: column; gap: 3px; font-size: 15px;
   }
   .rest .place { font-weight: 600; }
-  .rest .when { color: var(--tc, var(--cam-blue-deep)); font-weight: 600; }
+  .rest .when { color: var(--tc, var(--cam-blue-deep)); font-weight: 600; font-variant-numeric: tabular-nums; }
   .rest a { color: var(--ink-soft); text-decoration: underline; text-underline-offset: 2px; }
   .rest a:hover { color: var(--ink); }
   .rest .note { color: var(--ink-soft); font-size: 14px; }
@@ -198,11 +228,13 @@
   }
   ul.people { list-style: none; display: flex; flex-wrap: wrap; gap: 7px; }
   ul.people li {
-    background: var(--paper); border: 1px solid var(--line);
+    background: var(--paper);
     border-radius: 999px; padding: 4px 12px; font-size: 14px;
+    box-shadow: 0 0 0 1px rgba(28,43,51,0.08);
   }
   ul.people li.host {
-    background: var(--tc, var(--cam-blue)); color: #fff; border-color: transparent;
+    background: var(--tc, var(--cam-blue)); color: #fff;
+    box-shadow: none;
     font-weight: 500;
   }
   ul.people li.found { outline: 2.5px solid var(--ink); font-weight: 600; }
@@ -221,14 +253,19 @@
   }
   details.q-block summary::-webkit-details-marker { display: none; }
   details.q-block summary::after {
-    content: " ▾"; font-size: 12px;
+    content: "▾";
+    display: inline-block;
+    margin-left: 6px;
+    font-size: 12px;
+    transition: transform 200ms cubic-bezier(0.25, 0.46, 0.45, 0.94);
   }
-  details.q-block[open] summary::after { content: " ▴"; }
+  details.q-block[open] summary::after { transform: rotate(-180deg); }
   details.q-block ol {
     margin-top: 12px;
     padding-left: 22px;
     display: flex; flex-direction: column; gap: 12px;
     font-size: 15px;
+    text-wrap: pretty;
   }
   details.q-block ol li::marker { color: var(--tc, var(--cam-blue-deep)); font-weight: 600; }
   .q-soon {
@@ -267,10 +304,10 @@
 
 <header>
   <div class="wrap">
-    <p class="eyebrow">Invisible College 2026 · Cambridge</p>
-    <h1>Thursday Dinner</h1>
-    <p class="hero-sub">We'll have dinner in different groups at 7pm, based on the topics you chose in the registration form. Then we'll all convene at <a href="https://www.google.com/maps/search/?api=1&amp;query=The+Regal+Wetherspoon+Cambridge&amp;query_place_id=ChIJjbWxNnh62EcRZ8YwcSO5IZY" target="_blank" rel="noopener">Wetherspoons</a>.</p>
-    <div class="hero-meta">
+    <p class="eyebrow animate-enter" style="--stagger:0">Invisible College 2026 · Cambridge</p>
+    <h1 class="animate-enter" style="--stagger:1">Thursday Dinner</h1>
+    <p class="hero-sub animate-enter" style="--stagger:2">We'll have dinner in different groups at 7pm, based on the topics you chose in the registration form. Then we'll all convene at <a href="https://www.google.com/maps/search/?api=1&amp;query=The+Regal+Wetherspoon+Cambridge&amp;query_place_id=ChIJjbWxNnh62EcRZ8YwcSO5IZY" target="_blank" rel="noopener">Wetherspoons</a>.</p>
+    <div class="hero-meta animate-enter" style="--stagger:3">
       <span>Thursday <strong>20 August 2026</strong></span>
       <span>Doors from <strong>7:00&nbsp;pm</strong></span>
       <span><strong>38</strong> at dinner</span>
@@ -279,7 +316,7 @@
 </header>
 
 <div class="wrap">
-  <div class="finder">
+  <div class="finder animate-enter" style="--stagger:4">
     <label for="namebox">Find your table</label>
     <input id="namebox" type="text" placeholder="Start typing your name…" autocomplete="off">
     <p class="finder-result" id="finder-result" aria-live="polite"></p>
@@ -565,25 +602,31 @@
   var showDinner = function (hit) {
     var t = tables[hit.tableId];
     var everyone = roster.filter(function (r) { return r.tableId === hit.tableId; });
+    var s = 0;
+    var chunk = function (inner) {
+      return '<div class="animate-enter" style="--stagger:' + (s++) + '">' + inner + '</div>';
+    };
     var html = '';
-    html += '<div class="yd-table">' + esc(t.name) + '</div>';
-    html += '<div class="yd-place">' + esc(t.place) + '</div>';
-    if (t.when) html += '<div class="yd-when">' + esc(t.when) + '</div>';
+    var head = '<div class="yd-table">' + esc(t.name) + '</div>' +
+               '<div class="yd-place">' + esc(t.place) + '</div>' +
+               (t.when ? '<div class="yd-when">' + esc(t.when) + '</div>' : '');
+    html += chunk(head);
     if (t.map) {
-      html += '<a class="yd-map" href="' + t.map + '" target="_blank" rel="noopener">Open in Google Maps \u2192</a>';
-      html += '<div class="yd-note">' + esc(t.address) + (t.note ? ' \u00b7 ' + esc(t.note) : '') + '</div>';
+      html += chunk('<a class="yd-map" href="' + t.map + '" target="_blank" rel="noopener">Open in Google Maps \u2192</a>' +
+                    '<div class="yd-note">' + esc(t.address) + (t.note ? ' \u00b7 ' + esc(t.note) : '') + '</div>');
     } else if (t.note) {
-      html += '<div class="yd-note">' + esc(t.note) + '</div>';
+      html += chunk('<div class="yd-note">' + esc(t.note) + '</div>');
     }
-    html += '<div class="yd-with"><div class="yd-with-label">At your table (' + everyone.length + ')</div><ul>';
+    var withHtml = '<div class="yd-with"><div class="yd-with-label">At your table (' + everyone.length + ')</div><ul>';
     everyone.forEach(function (m) {
       var cls = m.name === hit.name ? 'me' : (m.isHost ? 'host' : '');
-      html += '<li' + (cls ? ' class="' + cls + '"' : '') + '>' + esc(m.name) + (m.name === hit.name ? ' (you)' : '') + '</li>';
+      withHtml += '<li' + (cls ? ' class="' + cls + '"' : '') + '>' + esc(m.name) + (m.name === hit.name ? ' (you)' : '') + '</li>';
     });
-    html += '</ul></div>';
+    withHtml += '</ul></div>';
+    html += chunk(withHtml);
     var qOl = document.querySelector('#' + hit.tableId + ' details.q-block ol');
     if (qOl) {
-      html += '<details class="q-block"><summary>Discussion questions</summary><ol>' + qOl.innerHTML + '</ol></details>';
+      html += chunk('<details class="q-block"><summary>Discussion questions</summary><ol>' + qOl.innerHTML + '</ol></details>');
     }
     panel.innerHTML = html;
     panel.style.setProperty('--tc', t.colorVar);
