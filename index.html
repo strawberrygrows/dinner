@@ -144,16 +144,17 @@
   /* ---------- Browse-all toggle ---------- */
   .browse-toggle {
     display: block;
-    margin: 28px auto 0;
-    font: inherit; font-weight: 600; font-size: 15px;
-    color: var(--ink);
-    background: var(--card);
-    border: 1.5px solid var(--line);
-    border-radius: 999px;
-    padding: 10px 22px;
+    margin: 40px auto 0;
+    font: inherit; font-weight: 500; font-size: 13px;
+    color: var(--ink-soft);
+    background: none;
+    border: none;
+    text-decoration: underline;
+    text-underline-offset: 3px;
+    padding: 6px 10px;
     cursor: pointer;
   }
-  .browse-toggle:hover { border-color: var(--cam-blue-deep); }
+  .browse-toggle:hover { color: var(--ink); }
   .browse-toggle:focus-visible { outline: 3px solid var(--cam-blue); }
   #all-tables { display: none; }
   #all-tables.show { display: block; }
@@ -287,7 +288,7 @@
 
 <main class="wrap">
 
-  <button type="button" class="browse-toggle" id="browse-toggle" aria-expanded="false" aria-controls="all-tables">Show all five tables</button>
+  <button type="button" class="browse-toggle" id="browse-toggle" aria-expanded="false" aria-controls="all-tables">Browse the full table list</button>
 
   <div id="all-tables">
 
@@ -540,7 +541,7 @@
   var revealTables = function (show) {
     allTables.classList.toggle('show', show);
     toggleBtn.setAttribute('aria-expanded', show ? 'true' : 'false');
-    toggleBtn.textContent = show ? 'Hide the full table list' : 'Show all five tables';
+    toggleBtn.textContent = show ? 'Hide the full table list' : 'Browse the full table list';
   };
   toggleBtn.addEventListener('click', function () {
     revealTables(!allTables.classList.contains('show'));
@@ -578,19 +579,11 @@
       html += '<li' + (cls ? ' class="' + cls + '"' : '') + '>' + esc(m.name) + (m.name === hit.name ? ' (you)' : '') + '</li>';
     });
     html += '</ul></div>';
-    var hasQs = !!document.querySelector('#' + hit.tableId + ' details.q-block');
-    if (hasQs) {
-      html += '<div class="yd-note" style="margin-top:12px"><a href="#' + hit.tableId + '" class="yd-qlink" data-table="' + hit.tableId + '">Your table\u2019s discussion questions \u2193</a></div>';
+    var qOl = document.querySelector('#' + hit.tableId + ' details.q-block ol');
+    if (qOl) {
+      html += '<details class="q-block"><summary>Discussion questions</summary><ol>' + qOl.innerHTML + '</ol></details>';
     }
     panel.innerHTML = html;
-    var qlink = panel.querySelector('.yd-qlink');
-    if (qlink) {
-      qlink.addEventListener('click', function () {
-        revealTables(true);
-        var d = document.querySelector('#' + this.dataset.table + ' details.q-block');
-        if (d) d.open = true;
-      });
-    }
     panel.style.setProperty('--tc', t.colorVar);
     panel.classList.add('show');
 
