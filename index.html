@@ -10,13 +10,15 @@
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Work+Sans:wght@400;500;600&display=swap" rel="stylesheet">
 <style>
   :root {
-    --ink: #1c2b33;
-    --ink-soft: #46595f;
-    --paper: #f7f5ef;
+    --ink: #191919;
+    --ink-soft: #55524c;
+    --paper: #faf8f3;
     --card: #ffffff;
+    --wip-red: #e0491f;
+    --wip-red-deep: #c23a14;
     --cam-blue: #a3c1ad;
     --cam-blue-deep: #6e957c;
-    --line: #e3ded2;
+    --line: #e6e2d8;
     /* table colours */
     --t-housing: #34707c;
     --t-ai: #7b4b6e;
@@ -39,11 +41,12 @@
 
   /* ---------- Hero ---------- */
   header {
-    background: var(--ink);
-    color: var(--paper);
-    padding: 56px 0 48px;
+    background: var(--card);
+    color: var(--ink);
+    padding: 52px 0 44px;
     position: relative;
     overflow: hidden;
+    border-bottom: 1px solid var(--line);
   }
   header::after {
     content: "";
@@ -54,7 +57,7 @@
   }
   .eyebrow {
     font-size: 13px; letter-spacing: 0.14em; text-transform: uppercase;
-    color: var(--cam-blue); font-weight: 600; margin-bottom: 14px;
+    color: var(--wip-red); font-weight: 600; margin-bottom: 14px;
   }
   h1 {
     font-family: 'Fraunces', Georgia, serif;
@@ -63,16 +66,20 @@
     text-wrap: balance;
   }
   .hero-sub {
-    margin-top: 16px; color: #c7d3d0; max-width: 46ch; font-size: 16px;
+    margin-top: 16px; color: var(--ink-soft); max-width: 46ch; font-size: 17px;
     text-wrap: pretty;
   }
-  .hero-sub a { color: var(--cam-blue); font-weight: 600; }
+  .hero-sub a {
+    color: var(--wip-red); font-weight: 600; text-decoration: none;
+    border-bottom: 1px solid currentColor;
+  }
+  .hero-sub a:hover { color: var(--wip-red-deep); }
   .hero-meta {
     margin-top: 22px; display: flex; gap: 22px; flex-wrap: wrap;
-    font-size: 14px; color: var(--cam-blue);
+    font-size: 14px; color: var(--ink-soft);
     font-variant-numeric: tabular-nums;
   }
-  .hero-meta strong { color: var(--paper); font-weight: 600; }
+  .hero-meta strong { color: var(--ink); font-weight: 600; }
 
   /* ---------- Name finder ---------- */
   .finder {
@@ -100,10 +107,10 @@
   }
   .finder input:focus {
     outline: none;
-    box-shadow: 0 0 0 1px var(--cam-blue-deep) inset, 0 0 0 3px var(--cam-blue);
+    box-shadow: 0 0 0 1px var(--wip-red) inset, 0 0 0 3px rgba(224,73,31,0.25);
   }
   .finder-result { margin-top: 12px; font-size: 15px; min-height: 1.2em; padding: 0 6px; text-wrap: pretty; }
-  .finder-result a { color: var(--cam-blue-deep); font-weight: 600; }
+  .finder-result a { color: var(--wip-red); font-weight: 600; }
   .finder-result .miss { color: var(--ink-soft); }
 
   .your-dinner {
@@ -117,28 +124,27 @@
   }
   .your-dinner.show { display: block; }
   .yd-table {
-    font-size: 12px; letter-spacing: 0.12em; text-transform: uppercase;
-    font-weight: 600; color: var(--tc, var(--cam-blue-deep)); margin-bottom: 2px;
+    font-size: 11.5px; letter-spacing: 0.14em; text-transform: uppercase;
+    font-weight: 600; color: var(--wip-red); margin-bottom: 2px;
   }
   .yd-place {
     font-family: 'Fraunces', Georgia, serif; font-weight: 600; font-size: 22px;
   }
   .yd-when { font-weight: 600; margin-top: 2px; }
   .yd-map {
-    display: inline-block; margin-top: 8px;
-    background: var(--ink); color: var(--paper);
-    text-decoration: none; font-weight: 600; font-size: 14px;
-    padding: 8px 12px 8px 14px; /* optical: arrow glyph carries visual weight right */
-    border-radius: 8px;
-    transition: background-color 180ms ease, transform 180ms ease;
+    display: inline-block; margin-top: 10px;
+    color: var(--wip-red);
+    text-decoration: none; font-weight: 600; font-size: 15px;
+    padding: 6px 8px 6px 0; /* generous tap target, optically flush left */
+    transition: color 180ms ease, transform 180ms ease;
   }
-  .yd-map:hover { background: var(--tc, var(--cam-blue-deep)); }
-  .yd-map:active { transform: scale(0.98); }
+  .yd-map:hover { color: var(--wip-red-deep); }
+  .yd-map:active { transform: translateX(2px); }
   .yd-note { color: var(--ink-soft); font-size: 14px; margin-top: 8px; }
   .yd-with { margin-top: 12px; }
   .yd-with-label {
-    font-size: 12px; letter-spacing: 0.12em; text-transform: uppercase;
-    font-weight: 600; color: var(--ink-soft); margin-bottom: 6px;
+    font-size: 11.5px; letter-spacing: 0.14em; text-transform: uppercase;
+    font-weight: 600; color: var(--wip-red); margin-bottom: 6px;
   }
   .yd-with ul { list-style: none; display: flex; flex-wrap: wrap; gap: 6px; }
   .yd-with li {
@@ -158,17 +164,17 @@
   .browse-toggle {
     display: block;
     margin: 40px auto 0;
-    font: inherit; font-weight: 500; font-size: 13px;
-    color: var(--ink-soft);
+    font: inherit; font-weight: 600; font-size: 14px;
+    color: var(--wip-red);
     background: none;
     border: none;
-    text-decoration: underline;
-    text-underline-offset: 3px;
     padding: 6px 10px;
     cursor: pointer;
+    transition: color 180ms ease;
   }
-  .browse-toggle:hover { color: var(--ink); }
-  .browse-toggle:focus-visible { outline: 3px solid var(--cam-blue); }
+  .browse-toggle::after { content: " \2192"; }
+  .browse-toggle:hover { color: var(--wip-red-deep); }
+  .browse-toggle:focus-visible { outline: 3px solid rgba(224,73,31,0.35); }
   #all-tables { display: none; }
   #all-tables.show { display: block; }
 
@@ -223,8 +229,8 @@
   }
   .table-body { padding: 0 22px 20px; }
   .people-label {
-    font-size: 12px; letter-spacing: 0.12em; text-transform: uppercase;
-    font-weight: 600; color: var(--ink-soft); margin: 14px 0 6px;
+    font-size: 11.5px; letter-spacing: 0.14em; text-transform: uppercase;
+    font-weight: 600; color: var(--wip-red); margin: 14px 0 6px;
   }
   ul.people { list-style: none; display: flex; flex-wrap: wrap; gap: 7px; }
   ul.people li {
@@ -248,9 +254,10 @@
     cursor: pointer;
     font-weight: 600;
     font-size: 15px;
-    color: var(--tc, var(--cam-blue-deep));
+    color: var(--wip-red);
     list-style: none;
   }
+  details.q-block summary:hover { color: var(--wip-red-deep); }
   details.q-block summary::-webkit-details-marker { display: none; }
   details.q-block summary::after {
     content: "▾";
