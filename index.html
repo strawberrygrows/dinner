@@ -1,0 +1,608 @@
+<!DOCTYPE html>
+<html lang="en-GB">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex, nofollow">
+<title>Invisible College 2026 — Thursday Dinner</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Work+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --ink: #1c2b33;
+    --ink-soft: #46595f;
+    --paper: #f7f5ef;
+    --card: #ffffff;
+    --cam-blue: #a3c1ad;
+    --cam-blue-deep: #6e957c;
+    --line: #e3ded2;
+    /* table colours */
+    --t-housing: #34707c;
+    --t-ai: #7b4b6e;
+    --t-sci1: #c08a2d;
+    --t-sci2: #5f7a3d;
+    --t-econ: #a85a32;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  @media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
+  body {
+    font-family: 'Work Sans', system-ui, sans-serif;
+    background: var(--paper);
+    color: var(--ink);
+    line-height: 1.55;
+    -webkit-font-smoothing: antialiased;
+  }
+  .wrap { max-width: 720px; margin: 0 auto; padding: 0 20px; }
+
+  /* ---------- Hero ---------- */
+  header {
+    background: var(--ink);
+    color: var(--paper);
+    padding: 56px 0 48px;
+    position: relative;
+    overflow: hidden;
+  }
+  header::after {
+    content: "";
+    position: absolute; inset: auto 0 0 0; height: 6px;
+    background: linear-gradient(90deg,
+      var(--t-housing) 0 20%, var(--t-ai) 20% 40%, var(--t-sci1) 40% 60%,
+      var(--t-sci2) 60% 80%, var(--t-econ) 80% 100%);
+  }
+  .eyebrow {
+    font-size: 13px; letter-spacing: 0.14em; text-transform: uppercase;
+    color: var(--cam-blue); font-weight: 600; margin-bottom: 14px;
+  }
+  h1 {
+    font-family: 'Fraunces', Georgia, serif;
+    font-weight: 700; font-size: clamp(38px, 7vw, 58px);
+    line-height: 1.05; letter-spacing: -0.01em;
+  }
+  .hero-sub {
+    margin-top: 16px; color: #c7d3d0; max-width: 46ch; font-size: 16px;
+  }
+  .hero-meta {
+    margin-top: 22px; display: flex; gap: 22px; flex-wrap: wrap;
+    font-size: 14px; color: var(--cam-blue);
+  }
+  .hero-meta strong { color: var(--paper); font-weight: 600; }
+
+  /* ---------- Name finder ---------- */
+  .finder {
+    background: var(--card);
+    border: 1px solid var(--line);
+    border-radius: 14px;
+    padding: 20px;
+    margin: -26px auto 0;
+    position: relative;
+    box-shadow: 0 6px 24px rgba(28,43,51,0.10);
+  }
+  .finder label {
+    display: block; font-weight: 600; font-size: 15px; margin-bottom: 8px;
+  }
+  .finder input {
+    width: 100%;
+    font: inherit; font-size: 17px;
+    padding: 12px 14px;
+    border: 1.5px solid var(--line);
+    border-radius: 10px;
+    background: var(--paper);
+    color: var(--ink);
+  }
+  .finder input:focus { outline: 3px solid var(--cam-blue); border-color: var(--cam-blue-deep); }
+  .finder-result { margin-top: 12px; font-size: 15px; min-height: 1.2em; }
+  .finder-result a { color: var(--cam-blue-deep); font-weight: 600; }
+  .finder-result .miss { color: var(--ink-soft); }
+
+  .your-dinner {
+    display: none;
+    margin-top: 14px;
+    border: 1px solid var(--line);
+    border-left: 5px solid var(--tc, var(--cam-blue));
+    border-radius: 10px;
+    padding: 16px 18px;
+    background: var(--paper);
+  }
+  .your-dinner.show { display: block; }
+  .yd-table {
+    font-size: 12px; letter-spacing: 0.12em; text-transform: uppercase;
+    font-weight: 600; color: var(--tc, var(--cam-blue-deep)); margin-bottom: 2px;
+  }
+  .yd-place {
+    font-family: 'Fraunces', Georgia, serif; font-weight: 600; font-size: 22px;
+  }
+  .yd-when { font-weight: 600; margin-top: 2px; }
+  .yd-map {
+    display: inline-block; margin-top: 8px;
+    background: var(--ink); color: var(--paper);
+    text-decoration: none; font-weight: 600; font-size: 14px;
+    padding: 8px 14px; border-radius: 8px;
+  }
+  .yd-map:hover { background: var(--tc, var(--cam-blue-deep)); }
+  .yd-note { color: var(--ink-soft); font-size: 14px; margin-top: 8px; }
+  .yd-with { margin-top: 12px; }
+  .yd-with-label {
+    font-size: 12px; letter-spacing: 0.12em; text-transform: uppercase;
+    font-weight: 600; color: var(--ink-soft); margin-bottom: 6px;
+  }
+  .yd-with ul { list-style: none; display: flex; flex-wrap: wrap; gap: 6px; }
+  .yd-with li {
+    background: #fff; border: 1px solid var(--line);
+    border-radius: 999px; padding: 3px 11px; font-size: 13.5px;
+  }
+  .yd-with li.host {
+    background: var(--tc, var(--cam-blue)); color: #fff; border-color: transparent;
+  }
+  .yd-with li.me {
+    background: var(--ink); color: #fff; border-color: transparent;
+    font-weight: 600; outline: 2px solid var(--tc, var(--cam-blue));
+  }
+
+  /* ---------- Browse-all toggle ---------- */
+  .browse-toggle {
+    display: block;
+    margin: 28px auto 0;
+    font: inherit; font-weight: 600; font-size: 15px;
+    color: var(--ink);
+    background: var(--card);
+    border: 1.5px solid var(--line);
+    border-radius: 999px;
+    padding: 10px 22px;
+    cursor: pointer;
+  }
+  .browse-toggle:hover { border-color: var(--cam-blue-deep); }
+  .browse-toggle:focus-visible { outline: 3px solid var(--cam-blue); }
+  #all-tables { display: none; }
+  #all-tables.show { display: block; }
+
+  /* ---------- Tables ---------- */
+  main { padding: 40px 0 24px; }
+  .table-card {
+    background: var(--card);
+    border: 1px solid var(--line);
+    border-radius: 14px;
+    margin-bottom: 26px;
+    overflow: hidden;
+    transition: box-shadow 0.3s ease;
+  }
+  .table-card.highlight { box-shadow: 0 0 0 3px var(--tc, var(--cam-blue)); }
+  .table-head {
+    padding: 20px 22px 16px;
+    border-top: 5px solid var(--tc, var(--cam-blue));
+  }
+  .table-name {
+    font-family: 'Fraunces', Georgia, serif;
+    font-weight: 600; font-size: 26px; line-height: 1.15;
+  }
+  .rest {
+    margin-top: 10px; display: flex; flex-direction: column; gap: 3px; font-size: 15px;
+  }
+  .rest .place { font-weight: 600; }
+  .rest .when { color: var(--tc, var(--cam-blue-deep)); font-weight: 600; }
+  .rest a { color: var(--ink-soft); text-decoration: underline; text-underline-offset: 2px; }
+  .rest a:hover { color: var(--ink); }
+  .rest .note { color: var(--ink-soft); font-size: 14px; }
+  .tbc {
+    display: inline-block; background: #f3e6c8; color: #7a5b13;
+    border-radius: 6px; padding: 2px 9px; font-size: 13px; font-weight: 600;
+  }
+  .table-body { padding: 0 22px 20px; }
+  .people-label {
+    font-size: 12px; letter-spacing: 0.12em; text-transform: uppercase;
+    font-weight: 600; color: var(--ink-soft); margin: 14px 0 6px;
+  }
+  ul.people { list-style: none; display: flex; flex-wrap: wrap; gap: 7px; }
+  ul.people li {
+    background: var(--paper); border: 1px solid var(--line);
+    border-radius: 999px; padding: 4px 12px; font-size: 14px;
+  }
+  ul.people li.host {
+    background: var(--tc, var(--cam-blue)); color: #fff; border-color: transparent;
+    font-weight: 500;
+  }
+  ul.people li.found { outline: 2.5px solid var(--ink); font-weight: 600; }
+
+  details.q-block {
+    margin-top: 18px;
+    border-top: 1px solid var(--line);
+    padding-top: 14px;
+  }
+  details.q-block summary {
+    cursor: pointer;
+    font-weight: 600;
+    font-size: 15px;
+    color: var(--tc, var(--cam-blue-deep));
+    list-style: none;
+  }
+  details.q-block summary::-webkit-details-marker { display: none; }
+  details.q-block summary::after {
+    content: " ▾"; font-size: 12px;
+  }
+  details.q-block[open] summary::after { content: " ▴"; }
+  details.q-block ol {
+    margin-top: 12px;
+    padding-left: 22px;
+    display: flex; flex-direction: column; gap: 12px;
+    font-size: 15px;
+  }
+  details.q-block ol li::marker { color: var(--tc, var(--cam-blue-deep)); font-weight: 600; }
+  .q-soon {
+    margin-top: 12px;
+    border: 1.5px dashed var(--line);
+    border-radius: 8px;
+    padding: 10px 14px;
+    color: var(--ink-soft);
+    font-size: 14px;
+  }
+
+  /* ---------- Questions ---------- */
+  .questions {
+    background: var(--ink); color: var(--paper);
+    border-radius: 14px; padding: 28px 24px; margin: 12px 0 40px;
+  }
+  .questions h2 {
+    font-family: 'Fraunces', Georgia, serif; font-weight: 600; font-size: 24px;
+    margin-bottom: 6px;
+  }
+  .questions p.intro { color: #c7d3d0; font-size: 15px; margin-bottom: 16px; }
+  .questions ol { padding-left: 22px; display: flex; flex-direction: column; gap: 10px; font-size: 16px; }
+  .questions ol li::marker { color: var(--cam-blue); font-weight: 600; }
+  .placeholder {
+    border: 1.5px dashed var(--cam-blue); border-radius: 10px;
+    padding: 14px 16px; color: var(--cam-blue); font-size: 15px;
+  }
+
+  footer {
+    text-align: center; color: var(--ink-soft); font-size: 13px;
+    padding: 0 20px 40px;
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="wrap">
+    <p class="eyebrow">Invisible College 2026 · Cambridge</p>
+    <h1>Thursday Dinner</h1>
+    <p class="hero-sub">Five tables, five conversations. Find your name below to see where you're eating, who you're with, and what's on the menu for discussion.</p>
+    <div class="hero-meta">
+      <span>Thursday <strong>20 August 2026</strong></span>
+      <span>Doors from <strong>7:00&nbsp;pm</strong></span>
+      <span><strong>38</strong> at dinner</span>
+    </div>
+  </div>
+</header>
+
+<div class="wrap">
+  <div class="finder">
+    <label for="namebox">Find your table</label>
+    <input id="namebox" type="text" placeholder="Start typing your name…" autocomplete="off">
+    <p class="finder-result" id="finder-result" aria-live="polite"></p>
+    <div class="your-dinner" id="your-dinner" aria-live="polite"></div>
+  </div>
+</div>
+
+<main class="wrap">
+
+  <button type="button" class="browse-toggle" id="browse-toggle" aria-expanded="false" aria-controls="all-tables">Show all five tables</button>
+
+  <div id="all-tables">
+
+  <!-- Housing & Infrastructure -->
+  <section class="table-card" id="housing" style="--tc: var(--t-housing)">
+    <div class="table-head">
+      <h2 class="table-name">Housing &amp; Infrastructure</h2>
+      <div class="rest">
+        <span class="place">d'Arry's</span>
+        <span class="when">7:00 pm · booked for 8</span>
+        <a href="https://maps.google.com/?q=d'Arry's,+2-4+King+St,+Cambridge+CB1+1LN" target="_blank" rel="noopener">2–4 King Street, CB1 1LN</a>
+        <span class="note">Service can be leisurely — order early if you're hungry.</span>
+      </div>
+    </div>
+    <div class="table-body">
+      <p class="people-label">From the team</p>
+      <ul class="people">
+        <li class="host">Samuel Hughes</li>
+        <li class="host">Will Hewitt</li>
+        <li class="host">Ben Southwood</li>
+      </ul>
+      <p class="people-label">Students</p>
+      <ul class="people">
+        <li>Akshaiy Reguram</li>
+        <li>Arthur Price</li>
+        <li>Genevieve Bailey</li>
+        <li>Jonus Goldstein</li>
+        <li>Vivian Oseep</li>
+      </ul>
+      <details class="q-block">
+        <summary>Discussion questions</summary>
+        <ol>
+          <li>Do homeowners' associations primarily allow busybodies to tyrannise their neighbours, or do they represent people's legitimate desire to control their environment? If they are inadequate, what is a better design?</li>
+          <li>How are we going to need to adapt regulation to accommodate autonomous vehicles as they become more common?</li>
+          <li>Why do you think African cities sprawl while similarly wealthy East Asian cities grow tall?</li>
+          <li>Loudoun County in Virginia is home to many politically popular data centres because residents benefit from the high tax rates they pay. Taking this lesson seriously, what infrastructure and planning rules would you change to make it easier to build?</li>
+          <li>What, if anything, should be done about London's high proportion of social housing?</li>
+        </ol>
+      </details>
+    </div>
+  </section>
+
+  <!-- Artificial Intelligence -->
+  <section class="table-card" id="ai" style="--tc: var(--t-ai)">
+    <div class="table-head">
+      <h2 class="table-name">Artificial Intelligence</h2>
+      <div class="rest">
+        <span class="place">Côte Brasserie</span>
+        <span class="when">7:15 pm · booked for 10</span>
+        <a href="https://maps.google.com/?q=Cote+Cambridge,+21-24+Bridge+St,+Cambridge+CB2+1UF" target="_blank" rel="noopener">21–24 Bridge Street, CB2 1UF</a>
+      </div>
+    </div>
+    <div class="table-body">
+      <p class="people-label">From the team</p>
+      <ul class="people">
+        <li class="host">Pieter Garicano</li>
+        <li class="host">Jenny Read</li>
+        <li class="host">Sam Enright</li>
+      </ul>
+      <p class="people-label">Students</p>
+      <ul class="people">
+        <li>Alex Chambers-Jones</li>
+        <li>Chhavi Shah</li>
+        <li>George Crosthwaite</li>
+        <li>Jasmine Li</li>
+        <li>Léna Rebours</li>
+        <li>Prakriti Garg</li>
+        <li>Sanj Iyer</li>
+      </ul>
+      <details class="q-block">
+        <summary>Discussion questions</summary>
+        <ol>
+          <li>Okay, let's get this out of the way. Place yourself on a spectrum from doomer to accelerationist — and then from "it's going to be a massive deal" to "it's normal technology".</li>
+          <li>Where do you think the economic rents from AI are mostly going to accrue? The labs? The semiconductor manufacturers? Energy? Data centres? Government? Why?</li>
+          <li>How should governments think about tax, given there could be a big structural change in how economic value is generated? What reforms would you propose in America? In the UK? In somewhere like Egypt?</li>
+          <li>What are the primary bottlenecks that will stop AI from making rapid improvements in robotics and medicine?</li>
+          <li>Will anti-AI political movements be successful? What will they achieve?</li>
+        </ol>
+      </details>
+    </div>
+  </section>
+
+  <!-- Science & Metascience 1 -->
+  <section class="table-card" id="sci1" style="--tc: var(--t-sci1)">
+    <div class="table-head">
+      <h2 class="table-name">Science &amp; Metascience I</h2>
+      <div class="rest">
+        <span class="place"><span class="tbc">Restaurant to be confirmed</span></span>
+        <span class="note">Check back here — this page will update once the booking is made.</span>
+      </div>
+    </div>
+    <div class="table-body">
+      <p class="people-label">From the team</p>
+      <ul class="people">
+        <li class="host">Aria Schrecker</li>
+      </ul>
+      <p class="people-label">Students</p>
+      <ul class="people">
+        <li>Daniel Read</li>
+        <li>Gabriela Frajtag</li>
+        <li>Jack Sykes</li>
+        <li>Josh Corbett</li>
+        <li>Manasi Gajjalapurna</li>
+      </ul>
+      <div class="q-soon">Discussion questions for this table are on their way.</div>
+    </div>
+  </section>
+
+  <!-- Science & Metascience 2 -->
+  <section class="table-card" id="sci2" style="--tc: var(--t-sci2)">
+    <div class="table-head">
+      <h2 class="table-name">Science &amp; Metascience II</h2>
+      <div class="rest">
+        <span class="place">Thanh Binh</span>
+        <span class="when">7:00 pm · booked for 6</span>
+        <a href="https://maps.google.com/?q=Thanh+Binh+Restaurant,+17+Magdalene+St,+Cambridge+CB3+0AF" target="_blank" rel="noopener">17 Magdalene Street, CB3 0AF</a>
+        <span class="note">No alcohol served, but bring-your-own is welcome (small corkage).</span>
+      </div>
+    </div>
+    <div class="table-body">
+      <p class="people-label">From the team</p>
+      <ul class="people">
+        <li class="host">Ellen Pasternack</li>
+      </ul>
+      <p class="people-label">Students</p>
+      <ul class="people">
+        <li>Ambika Grover</li>
+        <li>Jack Kingdon</li>
+        <li>Jonathan Brown</li>
+        <li>Riley Kuhlman</li>
+        <li>Rose Carcaillet</li>
+      </ul>
+      <div class="q-soon">Discussion questions for this table are on their way.</div>
+    </div>
+  </section>
+
+  <!-- Economics & History -->
+  <section class="table-card" id="econ" style="--tc: var(--t-econ)">
+    <div class="table-head">
+      <h2 class="table-name">Economics &amp; History</h2>
+      <div class="rest">
+        <span class="place">Honest Burgers</span>
+        <span class="when">7:00 pm · booked for 8</span>
+        <a href="https://maps.google.com/?q=Honest+Burgers,+1-6+Corn+Exchange+St,+Cambridge+CB2+3QF" target="_blank" rel="noopener">1–6 Corn Exchange Street, CB2 3QF</a>
+      </div>
+    </div>
+    <div class="table-body">
+      <p class="people-label">From the team</p>
+      <ul class="people">
+        <li class="host">Sam Bowman</li>
+        <li class="host">Rachel Edwards</li>
+      </ul>
+      <p class="people-label">Students</p>
+      <ul class="people">
+        <li>Felicia Zhou</li>
+        <li>Jay Sweitzer-Shalit</li>
+        <li>Jeremy Huff</li>
+        <li>Kalevi Barung</li>
+        <li>Martin Rumler</li>
+        <li>Tristan Low</li>
+      </ul>
+      <details class="q-block">
+        <summary>Discussion questions</summary>
+        <ol>
+          <li>What piece of history are you most interested in? What compels you the most about what was happening at the time?</li>
+          <li>What is the most important blocker on economic growth in your country right now? What policy would you design to solve it?</li>
+          <li>Where do you think the economic rents from AI are mostly going to accrue? The labs? The semiconductor manufacturers? Energy? Data centres? Government? Why?</li>
+          <li>Who is your favourite thinker currently? Why?</li>
+          <li>We've had Anton's lectures on how the industrial revolution was caused by a small group of people who decided to spread the "improving mindset". Can you think of other periods of history where a particular idea took off and had great impact? Why was that idea successful?</li>
+        </ol>
+      </details>
+    </div>
+  </section>
+  </div><!-- /all-tables -->
+
+</main>
+
+<footer>
+  Dietary requirements have already been passed to each restaurant.<br>
+  Questions on the night? Ask any of the team members at your table.
+</footer>
+
+<script>
+(function () {
+  var box = document.getElementById('namebox');
+  var out = document.getElementById('finder-result');
+  var panel = document.getElementById('your-dinner');
+
+  var tables = {
+    housing: {
+      name: 'Housing & Infrastructure', colorVar: 'var(--t-housing)',
+      place: "d'Arry's", when: '7:00 pm', address: '2\u20134 King Street, CB1 1LN',
+      map: "https://maps.google.com/?q=d'Arry's,+2-4+King+St,+Cambridge+CB1+1LN",
+      note: "Service can be leisurely \u2014 order early if you're hungry."
+    },
+    ai: {
+      name: 'Artificial Intelligence', colorVar: 'var(--t-ai)',
+      place: 'C\u00f4te Brasserie', when: '7:15 pm', address: '21\u201324 Bridge Street, CB2 1UF',
+      map: 'https://maps.google.com/?q=Cote+Cambridge,+21-24+Bridge+St,+Cambridge+CB2+1UF',
+      note: ''
+    },
+    sci1: {
+      name: 'Science & Metascience I', colorVar: 'var(--t-sci1)',
+      place: 'Restaurant to be confirmed', when: '', address: '',
+      map: '',
+      note: 'Check back here \u2014 this page will update once the booking is made.'
+    },
+    sci2: {
+      name: 'Science & Metascience II', colorVar: 'var(--t-sci2)',
+      place: 'Thanh Binh', when: '7:00 pm', address: '17 Magdalene Street, CB3 0AF',
+      map: 'https://maps.google.com/?q=Thanh+Binh+Restaurant,+17+Magdalene+St,+Cambridge+CB3+0AF',
+      note: 'No alcohol served, but bring-your-own is welcome (small corkage).'
+    },
+    econ: {
+      name: 'Economics & History', colorVar: 'var(--t-econ)',
+      place: 'Honest Burgers', when: '7:00 pm', address: '1\u20136 Corn Exchange Street, CB2 3QF',
+      map: 'https://maps.google.com/?q=Honest+Burgers,+1-6+Corn+Exchange+St,+Cambridge+CB2+3QF',
+      note: ''
+    }
+  };
+
+  // Build the roster from the DOM so the table cards stay the single source of truth
+  var roster = [];
+  Object.keys(tables).forEach(function (id) {
+    document.querySelectorAll('#' + id + ' ul.people li').forEach(function (li) {
+      roster.push({
+        name: li.textContent.trim(),
+        el: li,
+        tableId: id,
+        isHost: li.classList.contains('host')
+      });
+    });
+  });
+
+  var allTables = document.getElementById('all-tables');
+  var toggleBtn = document.getElementById('browse-toggle');
+  var revealTables = function (show) {
+    allTables.classList.toggle('show', show);
+    toggleBtn.setAttribute('aria-expanded', show ? 'true' : 'false');
+    toggleBtn.textContent = show ? 'Hide the full table list' : 'Show all five tables';
+  };
+  toggleBtn.addEventListener('click', function () {
+    revealTables(!allTables.classList.contains('show'));
+  });
+
+  var esc = function (s) {
+    return s.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+  };
+  var norm = function (s) {
+    return s.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '');
+  };
+  var clear = function () {
+    roster.forEach(function (r) { r.el.classList.remove('found'); });
+    document.querySelectorAll('.table-card').forEach(function (c) { c.classList.remove('highlight'); });
+    panel.classList.remove('show');
+    panel.innerHTML = '';
+  };
+
+  var showDinner = function (hit) {
+    var t = tables[hit.tableId];
+    var everyone = roster.filter(function (r) { return r.tableId === hit.tableId; });
+    var html = '';
+    html += '<div class="yd-table">' + esc(t.name) + '</div>';
+    html += '<div class="yd-place">' + esc(t.place) + '</div>';
+    if (t.when) html += '<div class="yd-when">' + esc(t.when) + '</div>';
+    if (t.map) {
+      html += '<a class="yd-map" href="' + t.map + '" target="_blank" rel="noopener">Open in Google Maps \u2192</a>';
+      html += '<div class="yd-note">' + esc(t.address) + (t.note ? ' \u00b7 ' + esc(t.note) : '') + '</div>';
+    } else if (t.note) {
+      html += '<div class="yd-note">' + esc(t.note) + '</div>';
+    }
+    html += '<div class="yd-with"><div class="yd-with-label">At your table (' + everyone.length + ')</div><ul>';
+    everyone.forEach(function (m) {
+      var cls = m.name === hit.name ? 'me' : (m.isHost ? 'host' : '');
+      html += '<li' + (cls ? ' class="' + cls + '"' : '') + '>' + esc(m.name) + (m.name === hit.name ? ' (you)' : '') + '</li>';
+    });
+    html += '</ul></div>';
+    var hasQs = !!document.querySelector('#' + hit.tableId + ' details.q-block');
+    if (hasQs) {
+      html += '<div class="yd-note" style="margin-top:12px"><a href="#' + hit.tableId + '" class="yd-qlink" data-table="' + hit.tableId + '">Your table\u2019s discussion questions \u2193</a></div>';
+    }
+    panel.innerHTML = html;
+    var qlink = panel.querySelector('.yd-qlink');
+    if (qlink) {
+      qlink.addEventListener('click', function () {
+        revealTables(true);
+        var d = document.querySelector('#' + this.dataset.table + ' details.q-block');
+        if (d) d.open = true;
+      });
+    }
+    panel.style.setProperty('--tc', t.colorVar);
+    panel.classList.add('show');
+
+    hit.el.classList.add('found');
+    document.getElementById(hit.tableId).classList.add('highlight');
+  };
+
+  box.addEventListener('input', function () {
+    clear();
+    var q = norm(box.value.trim());
+    if (q.length < 2) { out.textContent = ''; return; }
+    var hits = roster.filter(function (r) { return norm(r.name).indexOf(q) !== -1; });
+    if (hits.length === 0) {
+      out.innerHTML = '<span class="miss">No match \u2014 check the spelling, or scroll down to browse the tables.</span>';
+      return;
+    }
+    if (hits.length === 1) {
+      out.innerHTML = 'Hi ' + esc(hits[0].name.split(' ')[0]) + ' \u2014 here\u2019s your dinner:';
+      showDinner(hits[0]);
+      return;
+    }
+    out.innerHTML = hits.length + ' matches \u2014 keep typing: ' +
+      hits.slice(0, 4).map(function (h) { return esc(h.name); }).join(', ') + (hits.length > 4 ? '\u2026' : '');
+  });
+})();
+</script>
+
+</body>
+</html>
