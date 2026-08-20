@@ -63,6 +63,7 @@
   .hero-sub {
     margin-top: 16px; color: #c7d3d0; max-width: 46ch; font-size: 16px;
   }
+  .hero-sub a { color: var(--cam-blue); font-weight: 600; }
   .hero-meta {
     margin-top: 22px; display: flex; gap: 22px; flex-wrap: wrap;
     font-size: 14px; color: var(--cam-blue);
@@ -266,7 +267,7 @@
   <div class="wrap">
     <p class="eyebrow">Invisible College 2026 · Cambridge</p>
     <h1>Thursday Dinner</h1>
-    <p class="hero-sub">Five tables, five conversations. Find your name below to see where you're eating, who you're with, and what's on the menu for discussion.</p>
+    <p class="hero-sub">We'll have dinner in groups, based on the topics you chose in the registration form. Then we'll all convene at <a href="https://maps.google.com/?q=Byron's+Bear,+3+Thompsons+Ln,+Cambridge+CB5+8AQ" target="_blank" rel="noopener">Byron's Bear</a> — and then <a href="https://maps.google.com/?q=The+Regal+Wetherspoon,+38-39+St+Andrew's+St,+Cambridge+CB2+3AR" target="_blank" rel="noopener">Wetherspoons</a>.</p>
     <div class="hero-meta">
       <span>Thursday <strong>20 August 2026</strong></span>
       <span>Doors from <strong>7:00&nbsp;pm</strong></span>
@@ -296,9 +297,8 @@
       <h2 class="table-name">Housing &amp; Infrastructure</h2>
       <div class="rest">
         <span class="place">d'Arry's</span>
-        <span class="when">7:00 pm · booked for 8</span>
+        <span class="when">7:00 pm · booked for 8 people</span>
         <a href="https://maps.google.com/?q=d'Arry's,+2-4+King+St,+Cambridge+CB1+1LN" target="_blank" rel="noopener">2–4 King Street, CB1 1LN</a>
-        <span class="note">Service can be leisurely — order early if you're hungry.</span>
       </div>
     </div>
     <div class="table-body">
@@ -335,7 +335,7 @@
       <h2 class="table-name">Artificial Intelligence</h2>
       <div class="rest">
         <span class="place">Côte Brasserie</span>
-        <span class="when">7:15 pm · booked for 10</span>
+        <span class="when">7:15 pm · booked for 10 people</span>
         <a href="https://maps.google.com/?q=Cote+Cambridge,+21-24+Bridge+St,+Cambridge+CB2+1UF" target="_blank" rel="noopener">21–24 Bridge Street, CB2 1UF</a>
       </div>
     </div>
@@ -385,13 +385,22 @@
       </ul>
       <p class="people-label">Students</p>
       <ul class="people">
-        <li>Daniel Read</li>
+        <li>Ambika Grover</li>
         <li>Gabriela Frajtag</li>
         <li>Jack Sykes</li>
-        <li>Josh Corbett</li>
-        <li>Manasi Gajjalapurna</li>
+        <li>Jonathan Brown</li>
+        <li>Rose Carcaillet</li>
       </ul>
-      <div class="q-soon">Discussion questions for this table are on their way.</div>
+      <details class="q-block">
+        <summary>Discussion questions</summary>
+        <ol>
+          <li>What piece of scientific knowledge would improve the quality of public discourse if it were widely understood?</li>
+          <li>What technology do we have the scientific capability to make, but not the social institutions to disperse?</li>
+          <li>After AI and GLP-1s, what is going to be the next major discovery of the 2020s?</li>
+          <li>What disease are we going to cure next?</li>
+          <li>What's the most interesting problem we need to solve if we want to colonise space?</li>
+        </ol>
+      </details>
     </div>
   </section>
 
@@ -401,7 +410,7 @@
       <h2 class="table-name">Science &amp; Metascience II</h2>
       <div class="rest">
         <span class="place">Thanh Binh</span>
-        <span class="when">7:00 pm · booked for 6</span>
+        <span class="when">7:00 pm · booked for 6 people</span>
         <a href="https://maps.google.com/?q=Thanh+Binh+Restaurant,+17+Magdalene+St,+Cambridge+CB3+0AF" target="_blank" rel="noopener">17 Magdalene Street, CB3 0AF</a>
         <span class="note">No alcohol served, but bring-your-own is welcome (small corkage).</span>
       </div>
@@ -413,13 +422,22 @@
       </ul>
       <p class="people-label">Students</p>
       <ul class="people">
-        <li>Ambika Grover</li>
+        <li>Daniel Read</li>
         <li>Jack Kingdon</li>
-        <li>Jonathan Brown</li>
+        <li>Josh Corbett</li>
+        <li>Manasi Gajjalapurna</li>
         <li>Riley Kuhlman</li>
-        <li>Rose Carcaillet</li>
       </ul>
-      <div class="q-soon">Discussion questions for this table are on their way.</div>
+      <details class="q-block">
+        <summary>Discussion questions</summary>
+        <ol>
+          <li>What tractable area of science has the most potential for making people's lives better?</li>
+          <li>Which institutions would you be most keen to reform to help those areas along?</li>
+          <li>What disease are we going to cure next?</li>
+          <li>What are the primary bottlenecks preventing AI from making rapid improvements in medicine?</li>
+          <li>What's the most interesting problem we need to solve if we want to colonise space?</li>
+        </ol>
+      </details>
     </div>
   </section>
 
@@ -429,7 +447,7 @@
       <h2 class="table-name">Economics &amp; History</h2>
       <div class="rest">
         <span class="place">Honest Burgers</span>
-        <span class="when">7:00 pm · booked for 8</span>
+        <span class="when">7:00 pm · booked for 8 people</span>
         <a href="https://maps.google.com/?q=Honest+Burgers,+1-6+Corn+Exchange+St,+Cambridge+CB2+3QF" target="_blank" rel="noopener">1–6 Corn Exchange Street, CB2 3QF</a>
       </div>
     </div>
@@ -464,10 +482,6 @@
 
 </main>
 
-<footer>
-  Dietary requirements have already been passed to each restaurant.<br>
-  Questions on the night? Ask any of the team members at your table.
-</footer>
 
 <script>
 (function () {
@@ -480,7 +494,7 @@
       name: 'Housing & Infrastructure', colorVar: 'var(--t-housing)',
       place: "d'Arry's", when: '7:00 pm', address: '2\u20134 King Street, CB1 1LN',
       map: "https://maps.google.com/?q=d'Arry's,+2-4+King+St,+Cambridge+CB1+1LN",
-      note: "Service can be leisurely \u2014 order early if you're hungry."
+      note: ''
     },
     ai: {
       name: 'Artificial Intelligence', colorVar: 'var(--t-ai)',
