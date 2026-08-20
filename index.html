@@ -317,7 +317,7 @@
     <div class="hero-meta animate-enter" style="--stagger:3">
       <span>Thursday <strong>20 August 2026</strong></span>
       <span>Doors from <strong>7:00&nbsp;pm</strong></span>
-      <span><strong>38</strong> at dinner</span>
+      <span><strong>39</strong> at dinner</span>
     </div>
   </div>
 </header>
@@ -381,26 +381,27 @@
       <h2 class="table-name">Artificial Intelligence</h2>
       <div class="rest">
         <span class="place">Côte Brasserie</span>
-        <span class="when">7:15 pm · booked for 10 people</span>
+        <span class="when">7:15 pm · two tables of 6 and 5</span>
         <a href="https://www.google.com/maps/search/?api=1&amp;query=Cote+Cambridge+21-24+Bridge+St&amp;query_place_id=ChIJ6yOpV75w2EcRUmTXLnVCaZU" target="_blank" rel="noopener">21–24 Bridge Street, CB2 1UF</a>
       </div>
     </div>
     <div class="table-body">
-      <p class="people-label">From the team</p>
-      <ul class="people">
+      <p class="people-label">Table of six</p>
+      <ul class="people" data-sub="a">
         <li class="host">Pieter Garicano</li>
         <li class="host">Jenny Read</li>
-        <li class="host">Sam Enright</li>
-      </ul>
-      <p class="people-label">Students</p>
-      <ul class="people">
         <li>Alex Chambers-Jones</li>
         <li>Chhavi Shah</li>
-        <li>George Crosthwaite</li>
         <li>Jasmine Li</li>
         <li>Léna Rebours</li>
-        <li>Prakriti Garg</li>
+      </ul>
+      <p class="people-label">Table of five</p>
+      <ul class="people" data-sub="b">
+        <li class="host">Sam Enright</li>
+        <li>Jack O'Regan Kenny</li>
         <li>Sanj Iyer</li>
+        <li>Prakriti Garg</li>
+        <li>George Crosthwaite</li>
       </ul>
       <details class="q-block">
         <summary>Discussion questions</summary>
@@ -573,10 +574,12 @@
   var roster = [];
   Object.keys(tables).forEach(function (id) {
     document.querySelectorAll('#' + id + ' ul.people li').forEach(function (li) {
+      var ul = li.closest('ul');
       roster.push({
         name: li.textContent.trim(),
         el: li,
         tableId: id,
+        sub: (ul && ul.dataset.sub) || null,
         isHost: li.classList.contains('host')
       });
     });
@@ -608,7 +611,9 @@
 
   var showDinner = function (hit) {
     var t = tables[hit.tableId];
-    var everyone = roster.filter(function (r) { return r.tableId === hit.tableId; });
+    var everyone = roster.filter(function (r) {
+      return r.tableId === hit.tableId && r.sub === hit.sub;
+    });
     var s = 0;
     var chunk = function (inner) {
       return '<div class="animate-enter" style="--stagger:' + (s++) + '">' + inner + '</div>';
